@@ -2,8 +2,8 @@ k3s_cluster:
   children:
     server:
       hosts:
-        kube-server-01:
-          ansible_host: 188.245.43.250
+        kube-test-server-01:
+          ansible_host: 78.46.190.50
           hostname: kube-test-server-01.gerardnico.com
 #    agent:
 #      hosts:
