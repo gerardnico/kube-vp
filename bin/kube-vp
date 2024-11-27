@@ -14,7 +14,9 @@ source "${BASHLIB_LIBRARY_PATH:-}${BASHLIB_LIBRARY_PATH:+/}bashlib-command.sh"
 
 
 
+generate_conf(){
 
+}
 
 # @internal
 synopsis(){

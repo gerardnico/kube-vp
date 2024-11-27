@@ -1,0 +1,25 @@
+k3s_cluster:
+  children:
+    server:
+      hosts:
+        kube-server-01:
+          ansible_host: 188.245.43.250
+          hostname: kube-test-server-01.gerardnico.com
+#    agent:
+#      hosts:
+#        192.16.35.12:
+#        192.16.35.13:
+  vars:
+    ansible_user: root
+    k3s_version: v1.31.2+k3s1
+    # The token should be a random string of reasonable length. You can generate
+    # one with the following commands:
+    # - openssl rand -base64 64 | tr '\n' ''
+    # - pwgen -s 64 1
+    # You can use ansible-vault to encrypt this value / keep it secret.
+    # Or you can omit it if not using Vagrant and let the first server automatically generate one.
+    token: "PtnjbDlOaYn/7Tzd/3E+BKA681U8k6JocbBY/bBks9l23xJJgTxZPYeMsOJBKDf5YvGFONQbl+k87feAbyilcw=="
+    api_endpoint: "{{ hostvars[groups['server'][0]]['ansible_host'] | default(groups['server'][0]) }}"
+    # K3s server args
+    extra_server_args:
+      - "--disable=traefik"
