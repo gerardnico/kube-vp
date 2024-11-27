@@ -17,12 +17,19 @@ ansible-galaxy role install -r requirements.yml
 
 ### Create Inventory
 
- * Token
+
 ```bash
-CLUSTER_API_SERVER_IP=78.46.190.50
-CLUSTER_NAME=kube-test
-openssl rand -base64 64 | tr '\n' ''
+export CLUSTER_API_SERVER_01_IP=78.46.190.50
+export CLUSTER_API_SERVER_01_NAME=kube-vp-server-01
+export CLUSTER_SERVER_USER=root
+export CLUSTER_APEX_DOMAIN=gerardnico.com
+export CLUSTER_NAME=kube-vp
+export CLUSTER_K3S_VERSION=v1.31.2+k3s1
+export CLUSTER_TOKEN=$(openssl rand -base64 64 | tr -d '\n')
+
+envsubst < resources/inventory.yml >| conf/inventory.yml
 ```
+
 
 ### Os
 
