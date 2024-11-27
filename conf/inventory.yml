@@ -1,18 +1,18 @@
-
+# Template used to generate an inventory
 k3s_cluster:
   children:
     server:
       hosts:
         kube-vp-server-01:
-          ansible_host: 78.46.190.50
-          hostname: kube-vp-server-01.gerardnico.com
+          ansible_host: "78.46.190.50"
+          hostname: "kube-vp-server-01.gerardnico.com"
 #    agent:
 #      hosts:
 #        192.16.35.12:
 #        192.16.35.13:
   vars:
-    ansible_user: root
-    k3s_version: v1.31.2+k3s1
+    ansible_user: "root"
+    k3s_version: "v1.31.2+k3s1"
     # The token should be a random string of reasonable length. You can generate
     # one with the following commands:
     # - openssl rand -base64 64 | tr '\n' ''
