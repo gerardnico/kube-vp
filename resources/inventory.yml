@@ -11,7 +11,11 @@ k3s_cluster:
 #        192.16.35.12:
 #        192.16.35.13:
   vars:
+    # Can be set via ANSIBLE_REMOTE_USER (default to the user executing Ansible)
+    # https://docs.ansible.com/ansible/latest/reference_appendices/config.html#envvar-ANSIBLE_REMOTE_USER
     ansible_user: "$KUBE_X_CLUSTER_SERVER_USER"
+    # ANSIBLE_HOST_KEY_CHECKING
+    # See also https://docs.ansible.com/ansible/latest/reference_appendices/config.html#envvar-ANSIBLE_HOST_KEY_CHECKING
     k3s_version: "$KUBE_X_CLUSTER_K3S_VERSION"
     # The token should be a random string of reasonable length. You can generate
     # one with the following commands:
