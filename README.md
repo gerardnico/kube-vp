@@ -1,43 +1,50 @@
-# One-Clik Self-Hosted Kubernetes on a single VPS
-
+# Kube eXpress - A One-Clik, Single VPS, Self-Hosted Kubernetes Platform 
 
 
 ## Dependencies
 
-* `yq`
-* `openssl`
-* `ansible`
+* `yq` to update kubeconfig
+* `openssl` to generate a random token
+* [ans-x (ansible)](https://github.com/ansible-x)
+* `kubectl` to talk to the server and install kustomize apps
+* `scp` to get the kubeconfig from the server
+* `helm` to install helm package
+* `docker` to create and run image
 
 ## Steps
 
 ### Download requirements
+
+Install all requirements
 ```bash
-ansible-galaxy role install -r requirements.yml
+ansible-galaxy install -r requirements.yml
 ```
 
 ### Create Inventory
 
 
 ```bash
-export CLUSTER_API_SERVER_01_IP=78.46.190.50
-export CLUSTER_API_SERVER_01_NAME=kube-vp-server-01
-export CLUSTER_SERVER_USER=root
-export CLUSTER_APEX_DOMAIN=gerardnico.com
-export CLUSTER_NAME=kube-vp
-export CLUSTER_K3S_VERSION=v1.31.2+k3s1
-export CLUSTER_TOKEN=$(openssl rand -base64 64 | tr -d '\n')
+export KUBE_X_CLUSTER_API_SERVER_01_IP=78.46.190.50
+export KUBE_X_CLUSTER_API_SERVER_01_NAME=kube-vp-server-01
+export KUBE_X_CLUSTER_SERVER_USER=root
+export KUBE_X_CLUSTER_APEX_DOMAIN=example.com
+export KUBE_X_CLUSTER_NAME=kube-vp
+export KUBE_X_CLUSTER_K3S_VERSION=v1.31.2+k3s1
+export KUBE_X_CLUSTER_TOKEN=jbHWvQv9261KblczY7BX+OLcnZGrMSe+0UiFS3h7Ozc= # To generate a token: `openssl rand -base64 32 | tr -d '\n'`
 
 envsubst < resources/inventory.yml >| conf/inventory.yml
 ```
 
 
-### Os
+### Kubernetes Installation
 
 ```bash
-ansible-playbook -i conf/inventory.yml ansible/collections/ansible_collections/k3s/orchestration/playbooks/site.yml
+ansible-playbook -i conf/inventory.yml $ANSIBLE_HOME/collections/ansible_collections/k3s/orchestration/playbooks/site.yml
+ansible-playbook -i conf/inventory.yml k3s.orchestration
+ansible-galaxy collection list
 ```
 
-### Copy KUBECONFIG
+### Copy KUBECONFIG and connection test
 
 ```bash
 ssh-agent add /path/to/your/private/key
