@@ -40,7 +40,7 @@ envsubst < resources/inventory.yml >| conf/inventory.yml
 
 ```bash
 ansible-playbook -i conf/inventory.yml $ANSIBLE_HOME/collections/ansible_collections/k3s/orchestration/playbooks/site.yml
-ansible-playbook -i conf/inventory.yml k3s.orchestration
+ansible-playbook -i conf/inventory.yml k3s.orchestration.site.yml
 ansible-galaxy collection list
 ```
 
